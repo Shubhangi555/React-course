@@ -1,0 +1,75 @@
+// context/ContextTemplate.js
+import { createContext, useContext, useState } from 'react';
+
+/**
+ * 1. Create a context object
+ */
+const TemplateContext = createContext();
+
+/**
+ * 2. Custom hook to use the context easily
+ */
+export const useTemplate = () => useContext(TemplateContext);
+
+/**
+ * 3. Context provider component
+ */
+export const TemplateProvider = ({ children }) => {
+  // Replace with your initial state (array, object, boolean, etc.)
+  const [templateState, setTemplateState] = useState([]);
+
+  // Add item to state
+  const addItem = (item) => {
+    setTemplateState(prev => [...prev, item]);
+  };
+
+  // Remove item from state
+  const removeItem = (id) => {
+    setTemplateState(prev => prev.filter(item => item.id !== id));
+  };
+
+  // Update item in state (optional)
+  const updateItem = (id, updatedItem) => {
+    setTemplateState(prev =>
+      prev.map(item => (item.id === id ? { ...item, ...updatedItem } : item))
+    );
+  };
+
+  // Provide value to consumers
+  const value = {
+    templateState,
+    addItem,
+    removeItem,
+    updateItem, // optional
+  };
+
+  return (
+    <TemplateContext.Provider value={value}>
+      {children}
+    </TemplateContext.Provider>
+  );
+};
+
+
+
+
+
+✅ Rename This File:
+If you're creating a wishlist context:
+
+Rename file: WishlistContext.js
+
+Replace Template with Wishlist
+
+Replace templateState with wishlist
+
+
+
+
+✅ Update Initial State:
+If it's an object, set it like:
+
+js
+Copy
+Edit
+const [templateState, setTemplateState] = useState({ user: null });
